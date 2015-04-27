@@ -19,7 +19,7 @@ public:
         return strm << thrInfo._tid;
     }
 
-protected:
+//protected:
     pid_t _tid = 0;
 };
 

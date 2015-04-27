@@ -2,11 +2,14 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>626</width>
+    <width>608</width>
     <height>516</height>
    </rect>
   </property>
@@ -21,7 +24,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="procTab">
        <property name="autoFillBackground">
@@ -47,12 +50,15 @@
          <number>2</number>
         </property>
         <item>
-         <widget class="QTreeWidget" name="treeWidget">
+         <widget class="QTreeView" name="treeView">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
           <property name="showDropIndicator" stdset="0">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="alternatingRowColors">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="autoExpandDelay">
            <number>0</number>
@@ -73,60 +79,14 @@
            <bool>true</bool>
           </property>
           <property name="wordWrap">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="headerHidden">
            <bool>false</bool>
           </property>
-          <property name="columnCount">
-           <number>5</number>
-          </property>
-          <attribute name="headerCascadingSectionResizes">
-           <bool>true</bool>
-          </attribute>
           <attribute name="headerDefaultSectionSize">
-           <number>100</number>
+           <number>110</number>
           </attribute>
-          <attribute name="headerHighlightSections">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="headerMinimumSectionSize">
-           <number>50</number>
-          </attribute>
-          <attribute name="headerShowSortIndicator" stdset="0">
-           <bool>true</bool>
-          </attribute>
-          <attribute name="headerStretchLastSection">
-           <bool>true</bool>
-          </attribute>
-          <column>
-           <property name="text">
-            <string>Executable Name</string>
-           </property>
-           <property name="toolTip">
-            <string extracomment="ololo"/>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Process ID</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Thread ID</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Memory Use</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Processor Use</string>
-           </property>
-          </column>
          </widget>
         </item>
         <item>
@@ -208,7 +168,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>626</width>
+     <width>608</width>
      <height>25</height>
     </rect>
    </property>

@@ -9,6 +9,51 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    _procsInfo = getProcsInfo();
+    auto procList = _procsInfo.getProcList();
+
+    //tree model
+    treeModel = new QStandardItemModel(_procsInfo.getProcAmount(), 5);
+    treeModel->setHorizontalHeaderItem( 0, new QStandardItem( "Executable" ) );
+    treeModel->setHorizontalHeaderItem( 1, new QStandardItem( "PID" ) );
+    treeModel->setHorizontalHeaderItem( 2, new QStandardItem( "TID" ) );
+    treeModel->setHorizontalHeaderItem( 3, new QStandardItem( "RAM" ) );
+    treeModel->setHorizontalHeaderItem( 4, new QStandardItem( "CPU" ) );
+    int procNum = 0;
+
+    for(auto procIter = procList.begin(); procIter != procList.end(); procIter++, procNum++)
+    {
+       QStandardItem *item = new QStandardItem( QString::fromStdString(procIter->_execName) );
+       for(auto threadIter = procIter->getThreadList().begin(); threadIter != procIter->getThreadList().end(); threadIter++)
+       {
+          QStandardItem *child_1 = new QStandardItem( "" );
+          QStandardItem *child_2 = new QStandardItem( "" );
+          QStandardItem *child_3 = new QStandardItem( QString::number(threadIter->_tid) );
+          QStandardItem *child_4 = new QStandardItem( "     0" );
+          QStandardItem *child_5 = new QStandardItem( "     0" );
+
+          auto itemsList = new QList<QStandardItem*> {child_1, child_2, child_3, child_4,child_5};
+          item->appendRow( *itemsList );
+       }
+       treeModel->setItem(procNum, 0, item);
+
+       item = new QStandardItem( QString::number(procIter->_pid));
+       treeModel->setItem(procNum, 1, item);
+       item = new QStandardItem( "" );
+       treeModel->setItem(procNum, 2, item);
+       item = new QStandardItem( "0");
+       treeModel->setItem(procNum, 3, item);
+       item = new QStandardItem( "0");
+       treeModel->setItem(procNum, 4, item);
+    }
+
+    ui->treeView->setModel( treeModel );
+    ui->treeView->setColumnWidth(0, 280);
+    ui->treeView->setColumnWidth(1, 70);
+    ui->treeView->setColumnWidth(2, 70);
+    ui->treeView->setColumnWidth(3, 70);
+    ui->treeView->setColumnWidth(4, 70);
+
     //plot data
     graphX = new QVector<double>(1200);
     for (int i=0; i<graphX->size(); ++i)
@@ -45,36 +90,6 @@ MainWindow::MainWindow(QWidget *parent) :
     threadStat->setText("Threads: ");
     memoryStat->setText("RAM: ");
     processorStat->setText("CPU: ");
-
-    //treeWidget data
-    QStringList qStrL1;
-     qStrL1 << "Init" << "1" << "" << "256" << "15";
-    QTreeWidgetItem *QTopLevelItem1 = new QTreeWidgetItem(qStrL1);
-    QStringList qStrL1_1;
-     qStrL1_1 << "" << "" << "1" << "256" << "15";
-    QTreeWidgetItem *QSecondLevelItem1 = new QTreeWidgetItem(qStrL1_1);
-    QTopLevelItem1->addChild(QSecondLevelItem1);
-
-    QStringList qStrL2;
-     qStrL2 << "Qt Creator" << "2" << "" << "1024" << "41";
-    QTreeWidgetItem *QTopLevelItem2 = new QTreeWidgetItem(qStrL2);
-
-    QStringList qStrL2_1;
-     qStrL2_1 << "" << "" << "2" << "512" << "28";
-    QTreeWidgetItem *QSecondLevelItem2 = new QTreeWidgetItem(qStrL2_1);
-    QTopLevelItem2->addChild(QSecondLevelItem2);
-
-    QStringList qStrL2_2;
-     qStrL2_2 << "" << "" << "3" << "512" << "13";
-    QTreeWidgetItem *QSecondLevelItem3 = new QTreeWidgetItem(qStrL2_2);
-    QTopLevelItem2->addChild(QSecondLevelItem3);
-
-
-    QList<QTreeWidgetItem*> treeItems;
-    treeItems.push_back(QTopLevelItem1);
-    treeItems.push_back(QTopLevelItem2);
-
-    ui->treeWidget->addTopLevelItems(treeItems);
 
     //timer
     timer = new QTimer;

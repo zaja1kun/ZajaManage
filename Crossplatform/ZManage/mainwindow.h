@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QLabel>
+#include <QStandardItemModel>
 #include "procsinfo.h"
 
 namespace Ui {
@@ -39,6 +40,7 @@ private:
         , *memPlotY
         , *processPlotY
         , *threadPlotY;
+    QStandardItemModel* treeModel;
     double *plotRange
         , percentageRange = 100.0
         , greaterOfTwoRange;
