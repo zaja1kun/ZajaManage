@@ -8,7 +8,6 @@ using namespace std;
 ProcInfo::ProcInfo(pid_t pid)
     : _pid(pid)
 {
-
 }
 
 ProcInfo::ProcInfo(dirent* procDirEnt)
@@ -28,8 +27,8 @@ ProcInfo::ProcInfo(dirent* procDirEnt)
                 if(dirEnt->d_name[0]>='0' && dirEnt->d_name[0]<='9' /*&& atoi(dirEnt->d_name)!=_pid*/)
                 {
                     _threads.emplace_back(dirEnt);
+                    _threadAmount++;
                 }
-
             closedir(procDir);
         }
 
@@ -44,4 +43,14 @@ ProcInfo::ProcInfo(dirent* procDirEnt)
             fclose(fStatus);
         }
     }
+}
+
+int ProcInfo::getThreadAmount()
+{
+    return _threadAmount;
+}
+
+const std::list<ThreadInfo>& ProcInfo::getThreadList()
+{
+    return _threads;
 }

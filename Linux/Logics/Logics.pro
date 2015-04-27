@@ -5,15 +5,17 @@
 #-------------------------------------------------
 
 TEMPLATE    = lib
-DESTDIR     = /usr/lib/#./Out/#/usr/lib/
+#DESTDIR     = /usr/lib/#./Out/#/usr/lib/
 QT          -= gui
 SOURCES     = logics.cpp \
     procinfo.cpp \
-    threadinfo.cpp
+    threadinfo.cpp \
+    procsinfo.cpp
 
 HEADERS     = logics.h \
     procinfo.h \
-    threadinfo.h
+    threadinfo.h \
+    procsinfo.h
 
-TARGET      = logics
+TARGET      = ZMUnixLogics
 CONFIG      += c++11

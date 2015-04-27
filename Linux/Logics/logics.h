@@ -3,10 +3,12 @@
 
 
 #include <list>
-#include <procinfo.h>
+#include "procsinfo.h"
 
 extern "C"{
     std::list<ProcInfo> getProcList();
+    const ProcsInfo getProcsInfo();
+    double getRamBuisiness();
 }
 
 

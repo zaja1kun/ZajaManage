@@ -13,8 +13,9 @@ CONFIG   += c++11
 
 TEMPLATE = app
 
-
 SOURCES += main.cpp
 
-LIBS    += -llogics
-INCLUDEPATH += ../Logics/
+INCLUDEPATH += $$PWD/../Logics
+DEPENDPATH += $$PWD/../Logics
+
+unix:!macx: LIBS += -L$$PWD/../../Bin/Debug/ -lZMUnixLogics
